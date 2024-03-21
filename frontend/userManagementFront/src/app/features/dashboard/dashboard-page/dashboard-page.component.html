@@ -1,0 +1,110 @@
+<div>
+    <h4 class="text-primary" style="color:var(--lighBlue);"><b>Users Dashboard</b></h4>
+
+    <div class="d-flex">
+        <div class="d-flex col-md-9 align-items-center position-relative">
+            <input type="text" class="form-control ps-15 rounded-3 border-0" style="padding-left: 50px;"
+                placeholder="Search">
+            <i class="fa-solid fa-magnifying-glass position-absolute start-1" style="left: 20px; color: var(--mediumGray)"></i>
+
+            <app-button class="ms-3" (onClick)="addUser($event)" [label]="addUserLabel"
+                color="primary" iconName="fa-solid fa-plus ps-2" iconColor="white" [type]="ButtonType.Button">
+            </app-button>
+        </div>
+
+        <div class="d-flex col-md-3 justify-content-between gap-0 center">
+            <div class="dropdown d-flex align-items-center ps-3">
+                <app-button [isDropdown]=true (onClick)="sortItem($event)" [label]="sortLabel"
+                    [type]="ButtonType.Button">
+                </app-button>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Name</a>
+                    <a class="dropdown-item" href="#">Role</a>
+                    <a class="dropdown-item" href="#">Create date</a>
+                </div>
+            </div>
+
+            <div>
+                <app-button [isDropdown]=true (onClick)="savedSearch($event)" [label]="savedSearchLabel"
+                    [type]="ButtonType.Button">
+                </app-button>
+            </div>
+
+            <app-button size="small"
+                iconName="fa-solid fa-list" iconColor="var(--darkGray)" [type]="ButtonType.Button">
+            </app-button>
+        </div>
+    </div>
+
+    <!-- List User table -->
+    <div class="mt-3">
+        <table class="table table overflow-hidden rounded-4">
+            <thead>
+                <tr>
+                    <th colspan="4" class="ps-4 py-3 text"><b>List Users</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="head">Name</th>
+                    <th class="head">Create Date</th>
+                    <th class="head">Role</th>
+                    <th class="head">Action</th>
+                </tr>
+                <tr *ngFor="let user of users">
+                    <td class="col-md-5 body align-middle">
+                        <div class="d-flex justify-content-between center pe-5">
+                            <div>
+                                <h6 class="text" style="font-size: 15px;"><b>{{user.firstName}} {{user.lastName}}</b></h6>
+                                <p class="text" style="color: var(--mediumGray);">{{user.email}}</p>
+                            </div>
+                            <div class="bg-primary rounded-3 center d-flex py-1" style="width: 100px;">
+                                <p class="text text-white">{{user.permissionName}}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-md-2 body align-middle"><p>{{user.createdDate}}</p></td>
+                    <td class="col-md-2 body align-middle"><p>{{user.roleName}}</p></td>
+                    <td class="col-md-1 body align-middle justify-content-end align-items-center">
+                        <div class="d-flex">
+                            <app-button (onClick)="editUser($event)" size="small"
+                                iconName="fa-regular fa-pen-to-square" [type]="ButtonType.Button">
+                            </app-button>
+
+                            <app-button (onClick)="deleteUser($event)" size="small"
+                                iconName="fa-regular fa-trash-can" [type]="ButtonType.Button">
+                            </app-button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Pagination -->
+    <div class="flex center">
+        <p class="text center col-md-2">
+            Items per page
+        </p>
+
+        <select class="form-select border-0 border-bottom-2 bg-transparent" 
+            aria-label="Default select example" style="width: 90px;">
+            <option selected>5</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+        
+        <p class="text center col-md-2">1-4 of 10</p>
+
+        <div class="center justify-content-between" style="width: 50px;">
+            <span aria-hidden="true">&raquo;</span> 
+            <span aria-hidden="true">&raquo;</span>
+        </div>
+    </div>
+
+</div>

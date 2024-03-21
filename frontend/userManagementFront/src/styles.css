@@ -1,4 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --lighBlue: #4A85F6;
+    --white: #ffffff;
+    --darkGray: #222B45;
+    --mediumGray: #8F9BB3;
+    --lightGray: #EFF4FA
+}
+
 body {
     background-color: #F5F5F5;
+    font-family: 'Open Sans', sans-serif;
+    color: var(--darkGray);
+    font-size: 14px;
 }

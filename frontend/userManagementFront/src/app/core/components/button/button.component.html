@@ -1,0 +1,19 @@
+<div id = "">
+    <button
+        [type]="type"
+        class="btn rounded-1 ms-0 py-2 px-2 border-0"
+        [ngClass]="
+            { 
+                'btn-sm': size === 'small',
+                'btn-lg': size === 'large',
+                'btn-primary': color === 'primary',
+                'btn-secondary': color === 'secondary',
+                'dropdown-toggle': isDropdown
+            }"
+        (click)="onClickButton($event)"
+        style="font-size: 16px; width:max-content"
+    >
+        {{ label }}
+        <i *ngIf="iconName" [class]="iconName" [style.color]=iconColor></i>
+    </button>
+</div>
