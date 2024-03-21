@@ -18,6 +18,7 @@ export class ButtonComponent implements OnInit {
   @Input() label!: string;
   @Input() type: ButtonType = ButtonType.Button;
   @Input() size: 'small' | 'medium' | 'large' = 'medium';
+  @Input() fontColor: string = 'var(--darkGray)';
   @Input() color: string = 'bg-transparent';
   @Input() iconName!: string;
   @Input() iconColor: string = 'var(--mediumGray)';

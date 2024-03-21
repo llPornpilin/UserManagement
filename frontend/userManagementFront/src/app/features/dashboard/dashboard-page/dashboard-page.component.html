@@ -1,4 +1,6 @@
 <div>
+    <app-add-user-modal></app-add-user-modal>
+
     <h4 class="text-primary" style="color:var(--lighBlue);"><b>Users Dashboard</b></h4>
 
     <div class="d-flex">
@@ -7,8 +9,9 @@
                 placeholder="Search">
             <i class="fa-solid fa-magnifying-glass position-absolute start-1" style="left: 20px; color: var(--mediumGray)"></i>
 
-            <app-button class="ms-3" (onClick)="addUser($event)" [label]="addUserLabel"
-                color="primary" iconName="fa-solid fa-plus ps-2" iconColor="white" [type]="ButtonType.Button">
+            <app-button class="ms-3" [label]="addUserLabel" fontColor="white"
+                color="primary" iconName="fa-solid fa-plus ps-2" iconColor="white" [type]="ButtonType.Button"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
             </app-button>
         </div>
 

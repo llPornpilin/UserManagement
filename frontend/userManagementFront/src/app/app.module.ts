@@ -7,6 +7,7 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { TopbarComponent } from './core/components/topbar/topbar.component';
 import { DashboardPageComponent } from './features/dashboard/dashboard-page/dashboard-page.component';
 import { ButtonComponent } from './core/components/button/button.component';
+import { AddUserModalComponent } from './features/dashboard/add-user-modal/add-user-modal.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ButtonComponent } from './core/components/button/button.component';
     TopbarComponent,
     DashboardPageComponent,
     ButtonComponent,
+    AddUserModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,9 @@
+.table-header {
+    background-color: var(--lightGray);
+    color: var(--mediumGray);
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}

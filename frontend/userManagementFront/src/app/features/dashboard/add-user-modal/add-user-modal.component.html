@@ -1,0 +1,67 @@
+<div class="modal fade modal-xl" id="exampleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"><b>Add User</b></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="User ID *">
+                </div>
+                <div class="d-flex justify-content-between mb-3 gap-3">
+                    <input type="text" class="form-control" placeholder="First Name *">
+                    <input type="text" class="form-control" placeholder="Last Name *">
+                </div>
+                <div class="d-flex justify-content-between mb-3 gap-3">
+                    <input type="text" class="form-control" placeholder="Email ID *">
+                    <input type="text" class="form-control" placeholder="Mobile No *">
+                    <select class="form-select" aria-label="select user role">
+                        <option selected>Select Role Type</option>
+                        <option value='superAdmin'>Super Admin</option>
+                        <option value='admin'>Admin</option>
+                        <option value='employee'>Employee</option>
+                        <option value='loremIpsum'>Lorem Ipsum</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-between mb-3 gap-3">
+                    <input type="text" class="form-control" placeholder="Username *">
+                    <input type="text" class="form-control" placeholder="Password *">
+                    <input type="text" class="form-control" placeholder="Confirm Password *">
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr class="py-3">
+                            <th class="table-header">Module Permission</th>
+                            <th class="table-header">Read</th>
+                            <th class="table-header">Write</th>
+                            <th class="table-header">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let role of roles">
+                            <td class="py-3">{{role.roleName}}</td>
+                            <td class="py-3">
+                                <input class="form-check-input border-dark" type="checkbox" value="" id=`{{role.id}}Read`>
+                            </td>
+                            <td class="py-3">
+                                <input class="form-check-input border-dark" type="checkbox" value="" id=`{{role.id}}Write`>
+                            </td>
+                            <td class="py-3">
+                                <input class="form-check-input border-dark" type="checkbox" value="" id=`{{role.id}}Delete`>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <app-button (onClick)="addUser($event)" [label]="addUserLabel" fontColor="white"
+                    color="primary" size="small">
+                </app-button>
+                <app-button [label]="cancelAddModal" fontColor="var(--mediumGray)" data-bs-dismiss="modal" size="small">
+                </app-button>
+            </div>
+        </div>
+    </div>
+</div>

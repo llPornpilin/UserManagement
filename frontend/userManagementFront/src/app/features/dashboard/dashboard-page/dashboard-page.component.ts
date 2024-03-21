@@ -22,9 +22,6 @@ export class DashboardPageComponent {
 
   // Add User
   addUserLabel = "Add users"
-  addUser(event: any) { // TODO: Change data type
-    console.log('ADD USER: ', event);
-  }
 
   // Edit User
   editUser(event: any) { // TODO: Change data type

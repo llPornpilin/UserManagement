@@ -1,7 +1,7 @@
 <div id = "">
     <button
         [type]="type"
-        class="btn rounded-1 ms-0 py-2 px-2 border-0"
+        class="btn rounded-1 ms-0 border-0"
         [ngClass]="
             { 
                 'btn-sm': size === 'small',
@@ -12,6 +12,7 @@
             }"
         (click)="onClickButton($event)"
         style="font-size: 16px; width:max-content"
+        [style.color]="fontColor"
     >
         {{ label }}
         <i *ngIf="iconName" [class]="iconName" [style.color]=iconColor></i>
