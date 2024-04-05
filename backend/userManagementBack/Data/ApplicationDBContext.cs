@@ -1,12 +1,16 @@
 using Microsoft.EntityFrameworkCore;
+using userManagementBack.Models.Domain;
 
 namespace userManagementBack.Data
 {
-    public class ApplicationDBContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public ApplicationDBContext(DbContextOptions options) : base(options)
+        public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
 
+        public DbSet<UserData> UserDatas { get; set; }
+        public DbSet<RoleData> RoleDatas { get; set; }
+        public DbSet<PermissionData> PermissionDatas { get; set; }
     }
 }
