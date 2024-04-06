@@ -6,7 +6,7 @@ namespace userManagementBack.Models.Domain
     {
         [Key]
         public string PermissionId { get; set; } = string.Empty;
-        public string? PermissionName { get; set; }
+        public string PermissionName { get; set; } = string.Empty;
         public bool IsReadable { get; set; }
         public bool IsWritable { get; set; }
         public bool IsDeletable { get; set; }
