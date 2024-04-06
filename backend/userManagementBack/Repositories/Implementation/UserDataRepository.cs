@@ -39,23 +39,19 @@ namespace userManagementBack.Repositories.Implementation
                         returnUserData = orderDirection == "asc" ?
                             returnUserData.OrderBy(a => a.FirstName) :
                             returnUserData.OrderByDescending(a => a.FirstName);
-                            Console.WriteLine("____NO EMPTY, NAME CASE");
                         break;
                     case "role": // TODO: change Role to object and access to role name
                         returnUserData = orderDirection == "asc" ?
                             returnUserData.OrderBy(a => a.RoleId) :
                             returnUserData.OrderByDescending(a => a.RoleId);
-                            Console.WriteLine("____NO EMPTY, ROLE CASE");
                         break;
                     case "createddate":
                         returnUserData = orderDirection == "asc" ? 
                             returnUserData.OrderBy(a => a.CreatedDate) :
                             returnUserData.OrderByDescending(a => a.CreatedDate);
-                            Console.WriteLine("____NO EMPTY, DATE CASE");
                         break;
                     default:
                         returnUserData = returnUserData.OrderBy(a => a.CreatedDate);
-                        Console.WriteLine("____NO EMPTY, DEFAULT CASE");
                         break;
                 }
             }
