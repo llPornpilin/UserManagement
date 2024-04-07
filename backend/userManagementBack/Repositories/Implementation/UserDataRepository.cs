@@ -23,44 +23,18 @@ namespace userManagementBack.Repositories.Implementation
 
         public async Task<IEnumerable<UserData>> GetAllAsync(int pageNumber, int pageSize, string search, string orderBy, string orderDirection)
         {
-            var returnUserData = dbContext.UserDatas.AsQueryable();
-            search = string.IsNullOrEmpty(search) ? "" : search.ToLower();
-            orderBy = string.IsNullOrEmpty(orderBy) ? "" : orderBy.ToLower();
+            var returnUserData = await dbContext.UserDatas.ToListAsync();
+            return returnUserData;
+        }
 
-            if (search != "") {
-                returnUserData = returnUserData.Where(userData => userData.FirstName.ToLower().Contains(search) || 
-                                                        userData.LastName.ToLower().Contains(search) || 
-                                                        userData.Email.ToLower().Contains(search));
-            }
+        public Task<IEnumerable<UserData>> DeleteAsync(string userId)
+        {
+            throw new NotImplementedException();
+        }
 
-            if (orderBy != "") {
-                switch (orderBy) {
-                    case "name":
-                        returnUserData = orderDirection == "asc" ?
-                            returnUserData.OrderBy(a => a.FirstName) :
-                            returnUserData.OrderByDescending(a => a.FirstName);
-                        break;
-                    // case "role": // TODO: change Role to object and access to role name
-                    //     returnUserData = orderDirection == "asc" ?
-                    //         returnUserData.OrderBy(a => a.RoleId) :
-                    //         returnUserData.OrderByDescending(a => a.RoleId);
-                    //     break;
-                    case "createddate":
-                        returnUserData = orderDirection == "asc" ? 
-                            returnUserData.OrderBy(a => a.CreatedDate) :
-                            returnUserData.OrderByDescending(a => a.CreatedDate);
-                        break;
-                    default:
-                        returnUserData = returnUserData.OrderBy(a => a.CreatedDate);
-                        break;
-                }
-            }
-
-            var totalCount = await returnUserData.CountAsync();
-            var totalPages = (int)Math.Ceiling((decimal)totalCount / pageSize);
-            var userPerPage = totalCount == 0 ? Enumerable.Empty<UserData>() : returnUserData.ToList().Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-
-            return userPerPage;
+        public Task<IEnumerable<UserData>> EditAsync(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

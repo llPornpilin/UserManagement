@@ -63,10 +63,46 @@ namespace userManagementBack.Controllers
 
             var allUser = await userDataRepository.GetAllAsync(pageNumber, pageSize, search, orderBy, orderDirection);
 
+            search = string.IsNullOrEmpty(search) ? "" : search.ToLower();
+            orderBy = string.IsNullOrEmpty(orderBy) ? "" : orderBy.ToLower();
+
+            if (search != "") {
+                allUser = allUser.Where(userData => userData.FirstName.ToLower().Contains(search) || 
+                                                        userData.LastName.ToLower().Contains(search) || 
+                                                        userData.Email.ToLower().Contains(search));
+            }
+
+            if (orderBy != "") {
+                switch (orderBy) {
+                    case "name":
+                        allUser = orderDirection == "asc" ?
+                            allUser.OrderBy(a => a.FirstName) :
+                            allUser.OrderByDescending(a => a.FirstName);
+                        break;
+                    // case "role": // TODO: change Role to object and access to role name
+                    //     allUser = orderDirection == "asc" ?
+                    //         allUser.OrderBy(a => a.RoleId) :
+                    //         allUser.OrderByDescending(a => a.RoleId);
+                    //     break;
+                    case "createddate":
+                        allUser = orderDirection == "asc" ? 
+                            allUser.OrderBy(a => a.CreatedDate) :
+                            allUser.OrderByDescending(a => a.CreatedDate);
+                        break;
+                    default:
+                        allUser = allUser.OrderBy(a => a.CreatedDate);
+                        break;
+                }
+            }
+
+            var totalCount = allUser.Count();
+            var totalPages = (int)Math.Ceiling((decimal)totalCount / pageSize);
+            var userPerPage = totalCount == 0 ? Enumerable.Empty<UserData>() : allUser.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
             // Map domain model to DTO
             var response = new
             {
-                datasource = allUser.Select(user => new
+                datasource = userPerPage.Select(user => new
                 {
                     userId = user.Id.ToString(),
                     firstName = user.FirstName,
@@ -94,7 +130,7 @@ namespace userManagementBack.Controllers
 
         // [HttpPost]
         // public async Task<IActionResult> EditUser() {
-
+            
         // }
     }
 }
