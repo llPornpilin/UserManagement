@@ -10,8 +10,9 @@ namespace userManagementBack.Models.DTO
         public string Email { get; set; } = string.Empty;
         public string? Phone { get; set; }
         public string RoleId { get; set; } = string.Empty;
+        public RoleData? Role { get; set; }
         public string UserName { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public ICollection<PermissionData> Permissions { get; set; }
+        public ICollection<BridgeUserPermissionData>? Permissions { get; set; }
     }
 }

@@ -7,5 +7,6 @@ namespace userManagementBack.Models.Domain
         [Key]
         public string RoleId { get; set; } = string.Empty;
         public string RoleName { get; set; } = string.Empty;
+        public ICollection<UserData>? Users { get; set; }
     }
 }

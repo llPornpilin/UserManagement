@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using userManagementBack.Data;
 using userManagementBack.Models.Domain;
 using userManagementBack.Models.DTO;
+using userManagementBack.Models.Response;
 using userManagementBack.Repositories.Interface;
 
 namespace userManagementBack.Controllers
@@ -21,6 +22,7 @@ namespace userManagementBack.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserRequestDto request) {
+
             // Map DTO to Domain model
             var newUser = new UserData {
                 Id = request.Id,
@@ -31,9 +33,8 @@ namespace userManagementBack.Controllers
                 RoleId = request.RoleId,
                 UserName = request.UserName,
                 Password = request.Password,
-                Permissions = request.Permissions.Select(p => new PermissionData {
+                Permissions = request.Permissions?.Select(p => new BridgeUserPermissionData {
                     PermissionId = p.PermissionId,
-                    PermissionName = p.PermissionName,
                     IsReadable = p.IsReadable,
                     IsWritable = p.IsWritable,
                     IsDeletable = p.IsDeletable
@@ -43,27 +44,17 @@ namespace userManagementBack.Controllers
 
             await userDataRepository.CreateAsync(newUser);
 
-
-            // Damain model to DTO
-            var response = new UserDataDto {
-                Id = newUser.Id,
-                FirstName = newUser.FirstName,
-                LastName = newUser.LastName,
-                Email = newUser.Email,
-                Phone = newUser.Phone,
-                RoleId = newUser.RoleId,
-                UserName = newUser.UserName,
-                Password = newUser.Password,
-                Permissions = request.Permissions.Select(p => new PermissionData {
-                    PermissionId = p.PermissionId,
-                    PermissionName = p.PermissionName,
-                    IsReadable = p.IsReadable,
-                    IsWritable = p.IsWritable,
-                    IsDeletable = p.IsDeletable
-                }).ToList(),
-                CreatedDate = newUser.CreatedDate
-            };
-
+            var response = new UserResponse(); // TODO: change response
+            response.Status.Code = "Success";
+            response.Status.Description = "User created successfully .";
+            response.Data.Id = newUser.Id;
+            response.Data.FirstName = newUser.FirstName;
+            response.Data.LastName = newUser.LastName;
+            response.Data.Email = newUser.Email;
+            response.Data.Phone = newUser.Phone;
+            response.Data.Role = newUser.Role;
+            response.Data.UserName = newUser.UserName;
+            
             return Ok(response);
         }
 
@@ -77,21 +68,33 @@ namespace userManagementBack.Controllers
             {
                 datasource = allUser.Select(user => new
                 {
-                    userId = user.Id.ToString(), // Ensure ID conversion to string
+                    userId = user.Id.ToString(),
                     firstName = user.FirstName,
                     lastName = user.LastName,
                     email = user.Email,
-                    roleId = user.RoleId,
+                    role = user.Role,
                     userName = user.UserName,
-                    permissions = user.Permissions,
-                    createdDate = user.CreatedDate
+                    permission = user?.Permissions?.Select(p => new {
+                        p.PermissionId,
+                    }),
+                    createdDate = user?.CreatedDate
                 }),
                 pageNumber = pageNumber,
                 pageSize = pageSize,
                 totalCount = allUser.Count()
             };
 
+            // var response = new GetAllUserResponse(); // TODO: change response
+            // response.Page = pageNumber;
+            // response.PageSize = pageSize;
+            // response.TotalCount = allUser.Count();
+
             return Ok(response);
         }
+
+        // [HttpPost]
+        // public async Task<IActionResult> EditUser() {
+
+        // }
     }
 }

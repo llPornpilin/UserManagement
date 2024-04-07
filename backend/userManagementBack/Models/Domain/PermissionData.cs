@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace userManagementBack.Models.Domain
 {
@@ -7,8 +8,6 @@ namespace userManagementBack.Models.Domain
         [Key]
         public string PermissionId { get; set; } = string.Empty;
         public string PermissionName { get; set; } = string.Empty;
-        public bool IsReadable { get; set; }
-        public bool IsWritable { get; set; }
-        public bool IsDeletable { get; set; }
+        public ICollection<BridgeUserPermissionData>? Users { get; set; }
     }
 }

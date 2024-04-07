@@ -40,11 +40,11 @@ namespace userManagementBack.Repositories.Implementation
                             returnUserData.OrderBy(a => a.FirstName) :
                             returnUserData.OrderByDescending(a => a.FirstName);
                         break;
-                    case "role": // TODO: change Role to object and access to role name
-                        returnUserData = orderDirection == "asc" ?
-                            returnUserData.OrderBy(a => a.RoleId) :
-                            returnUserData.OrderByDescending(a => a.RoleId);
-                        break;
+                    // case "role": // TODO: change Role to object and access to role name
+                    //     returnUserData = orderDirection == "asc" ?
+                    //         returnUserData.OrderBy(a => a.RoleId) :
+                    //         returnUserData.OrderByDescending(a => a.RoleId);
+                    //     break;
                     case "createddate":
                         returnUserData = orderDirection == "asc" ? 
                             returnUserData.OrderBy(a => a.CreatedDate) :

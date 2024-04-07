@@ -13,5 +13,26 @@ namespace userManagementBack.Data
         public DbSet<RoleData> RoleDatas { get; set; }
         public DbSet<PermissionData> PermissionDatas { get; set; }
         public DbSet<BridgeUserPermissionData> UserPermissionDatas { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<UserData>()
+                .HasOne(u => u.Role)
+                .WithMany(r => r.Users)
+                .HasForeignKey(ur => ur.RoleId);
+
+            modelBuilder.Entity<UserData>()
+                .HasMany(u => u.Permissions)
+                .WithOne(r => r.UserData)
+                .HasForeignKey(ur => ur.UserId);
+            
+            modelBuilder.Entity<PermissionData>()
+                .HasMany(u => u.Users)
+                .WithOne(r => r.PermissionData)
+                .HasForeignKey(ur => ur.PermissionId);
+            
+            modelBuilder.Entity<BridgeUserPermissionData>()
+                .Property(u => u.UserPermissionId)
+                .ValueGeneratedOnAdd();
+        }
     }
 }
