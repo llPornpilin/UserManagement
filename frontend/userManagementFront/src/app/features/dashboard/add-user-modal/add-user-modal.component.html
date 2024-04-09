@@ -5,7 +5,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel"><b>Add User</b></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <form #form="ngForm" (ngSubmit)="onFormAddUserSubmit()" class="modal-body">
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="User ID *">
                 </div>
@@ -54,7 +54,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </form>
             <div class="modal-footer">
                 <app-button (onClick)="addUser($event)" [label]="addUserLabel" fontColor="white"
                     color="primary" size="small">

@@ -20,4 +20,10 @@ export class AddUserModalComponent {
   }
 
   cancelAddModal = "Cencel"
+
+  
+
+  onFormAddUserSubmit() {
+
+  }
 }

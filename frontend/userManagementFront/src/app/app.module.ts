@@ -8,6 +8,7 @@ import { TopbarComponent } from './core/components/topbar/topbar.component';
 import { DashboardPageComponent } from './features/dashboard/dashboard-page/dashboard-page.component';
 import { ButtonComponent } from './core/components/button/button.component';
 import { AddUserModalComponent } from './features/dashboard/add-user-modal/add-user-modal.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AddUserModalComponent } from './features/dashboard/add-user-modal/add-u
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [
     provideClientHydration()

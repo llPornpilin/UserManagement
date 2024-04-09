@@ -6,7 +6,7 @@ namespace userManagementBack.Repositories.Interface
     {
         Task<UserData> CreateAsync(UserData userData);
         Task<IEnumerable<UserData>> GetAllAsync(int pageNuumber, int pageSize, string search, string orderBy, string orderDirection);
-        Task<IEnumerable<UserData>> EditAsync(string userId);
-        Task<IEnumerable<UserData>> DeleteAsync(string userId);
+        Task<UserData?> UpdateAsync(UserData user);
+        Task<UserData?> DeleteAsync(string userId);
     }
 }

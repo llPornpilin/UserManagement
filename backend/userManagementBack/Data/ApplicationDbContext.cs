@@ -18,12 +18,14 @@ namespace userManagementBack.Data
             modelBuilder.Entity<UserData>()
                 .HasOne(u => u.Role)
                 .WithMany(r => r.Users)
-                .HasForeignKey(ur => ur.RoleId);
+                .HasForeignKey(ur => ur.RoleId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<UserData>()
                 .HasMany(u => u.Permissions)
                 .WithOne(r => r.UserData)
-                .HasForeignKey(ur => ur.UserId);
+                .HasForeignKey(ur => ur.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
             
             modelBuilder.Entity<PermissionData>()
                 .HasMany(u => u.Users)
@@ -33,6 +35,9 @@ namespace userManagementBack.Data
             modelBuilder.Entity<BridgeUserPermissionData>()
                 .Property(u => u.UserPermissionId)
                 .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<BridgeUserPermissionData>()
+                .ToTable("UserPermissionDatas");
         }
     }
 }

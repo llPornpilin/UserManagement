@@ -128,9 +128,70 @@ namespace userManagementBack.Controllers
             return Ok(response);
         }
 
-        // [HttpPost]
-        // public async Task<IActionResult> EditUser() {
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateUser([FromRoute] string id, UpdateUserRequestDto request) {
+            // Convert DTO to Domain
+            var updatedUserData = new UserData {
+                Id = id,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                Phone = request.Phone,
+                RoleId = request.RoleId,
+                UserName = request.UserName,
+                Password = request.Password,
+                Permissions = request.Permissions?.Select(p => new BridgeUserPermissionData {
+                    PermissionId = p.PermissionId,
+                    IsReadable = p.IsReadable,
+                    IsWritable = p.IsWritable,
+                    IsDeletable = p.IsDeletable
+                }).ToList(),
+                CreatedDate = DateTime.UtcNow.ToString("dd MMMM, yyyy", CultureInfo.InvariantCulture)
+            };
             
-        // }
+            updatedUserData = await userDataRepository.UpdateAsync(updatedUserData);
+
+            if (updatedUserData == null) {
+                return NotFound();
+            }
+
+            // Convert Domain to DTO
+            var response = new UserResponse(); // TODO: change response
+            response.Status.Code = "Success";
+            response.Status.Description = "User updated successfully .";
+            response.Data.Id = updatedUserData.Id;
+            response.Data.FirstName = updatedUserData.FirstName;
+            response.Data.LastName = updatedUserData.LastName;
+            response.Data.Email = updatedUserData.Email;
+            response.Data.Phone = updatedUserData.Phone;
+            response.Data.Role = updatedUserData.Role;
+            response.Data.UserName = updatedUserData.UserName;
+
+            return Ok(response);
+
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult> DeleteUser([FromRoute] string id) {
+            var deletedUser = await userDataRepository.DeleteAsync(id);
+            if (deletedUser is null) {
+                return NotFound();
+            }
+
+            var response = new UserResponse();
+            response.Status.Code = "Success";
+            response.Status.Description = "User deleted successfully .";
+            response.Data.Id = id;
+            response.Data.FirstName = deletedUser.FirstName;
+            response.Data.LastName = deletedUser.LastName;
+            response.Data.Email = deletedUser.Email;
+            response.Data.Phone = deletedUser.Phone;
+            response.Data.Role = deletedUser.Role;
+            response.Data.UserName = deletedUser.UserName;
+
+            return Ok(response);
+        }
     }
 }
