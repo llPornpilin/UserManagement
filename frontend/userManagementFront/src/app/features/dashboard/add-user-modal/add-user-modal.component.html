@@ -1,33 +1,33 @@
 <div class="modal fade modal-xl" id="exampleModal" tabindex="-1">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <form #form="ngForm" (ngSubmit)="onFormAddUserSubmit()" class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel"><b>Add User</b></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form #form="ngForm" (ngSubmit)="onFormAddUserSubmit()" class="modal-body">
+            <div class="modal-body">
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="User ID *">
+                    <input type="text" name="userId" class="form-control" placeholder="User ID *" [(ngModel)]="model.Id">
                 </div>
                 <div class="d-flex justify-content-between mb-3 gap-3">
-                    <input type="text" class="form-control" placeholder="First Name *">
-                    <input type="text" class="form-control" placeholder="Last Name *">
+                    <input type="text" name="firstName" class="form-control" placeholder="First Name *" [(ngModel)]="model.FirstName">
+                    <input type="text" name="lastName" class="form-control" placeholder="Last Name *" [(ngModel)]="model.LastName">
                 </div>
                 <div class="d-flex justify-content-between mb-3 gap-3">
-                    <input type="text" class="form-control" placeholder="Email ID *">
-                    <input type="text" class="form-control" placeholder="Mobile No *">
-                    <select class="form-select" aria-label="select user role">
+                    <input type="text" name="email" class="form-control" placeholder="Email ID *" [(ngModel)]="model.Email">
+                    <input type="text" name="phone" class="form-control" placeholder="Mobile No *" [(ngModel)]="model.Phone">
+                    <select name="role" class="form-select" aria-label="select user role" [(ngModel)]="model.RoleId">
                         <option selected>Select Role Type</option>
-                        <option value='superAdmin'>Super Admin</option>
-                        <option value='admin'>Admin</option>
-                        <option value='employee'>Employee</option>
-                        <option value='loremIpsum'>Lorem Ipsum</option>
+                        <option value='01'>Student</option>
+                        <option value='02'>Developer</option>
+                        <option value='03'>Front End</option>
+                        <option value='04'>Back End</option>
                     </select>
                 </div>
                 <div class="d-flex justify-content-between mb-3 gap-3">
-                    <input type="text" class="form-control" placeholder="Username *">
-                    <input type="text" class="form-control" placeholder="Password *">
-                    <input type="text" class="form-control" placeholder="Confirm Password *">
+                    <input type="text" name="username" class="form-control" placeholder="Username *" [(ngModel)]="model.Username">
+                    <input type="text" name="password" class="form-control" placeholder="Password *" [(ngModel)]="model.Password">
+                    <input type="text" name="confirmPassword" class="form-control" placeholder="Confirm Password *">
                 </div>
 
                 <table class="table">
@@ -40,28 +40,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let role of roles">
-                            <td class="py-3">{{role.roleName}}</td>
+                        <tr *ngFor="let permission of permissionMock; let index = index">
+                            <td class="py-3">{{permission.PermissionName}}</td>
                             <td class="py-3">
-                                <input class="form-check-input border-dark" type="checkbox" value="" id=`{{role.id}}Read`>
+                                <input class="form-check-input border-dark" name=`{{permission.PermissionId}}Readable`
+                                    type="checkbox" value="" [(ngModel)]="permissionModel[index].IsReadable">
                             </td>
                             <td class="py-3">
-                                <input class="form-check-input border-dark" type="checkbox" value="" id=`{{role.id}}Write`>
+                                <input class="form-check-input border-dark" name=`{{permission.PermissionId}}Writable`
+                                    type="checkbox" value="" [(ngModel)]="permissionModel[index].IsWritable">
                             </td>
                             <td class="py-3">
-                                <input class="form-check-input border-dark" type="checkbox" value="" id=`{{role.id}}Delete`>
+                                <input class="form-check-input border-dark" name=`{{permission.PermissionId}}Deletable`
+                                    type="checkbox" value="" [(ngModel)]="permissionModel[index].IsDeletable">
                             </td>
                         </tr>
                     </tbody>
                 </table>
-            </form>
+            </div>
             <div class="modal-footer">
                 <app-button (onClick)="addUser($event)" [label]="addUserLabel" fontColor="white"
-                    color="primary" size="small">
+                    color="primary" size="small" [type]="buttonTypeSubmit">
                 </app-button>
                 <app-button [label]="cancelAddModal" fontColor="var(--mediumGray)" data-bs-dismiss="modal" size="small">
                 </app-button>
             </div>
-        </div>
+        </form>
     </div>
 </div>

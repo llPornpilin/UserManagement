@@ -1,19 +1,19 @@
 export interface AddUserRequest {
-    userId: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    phone: string,
-    role: string,
-    username: string,
-    password: string,
-    confirmPassword: string,
-    permissions: Permissions[]
+    Id: string,
+    FirstName: string,
+    LastName: string,
+    Email: string,
+    Phone: string,
+    RoleId: string,
+    Username: string,
+    Password: string,
+    // ConfirmPassword: string,
+    Permissions: Permissions[]
 }
 
-interface Permissions {
-    permissionId: string,
-    isReadable: boolean,
-    isWritable: boolean,
-    isDeletable: boolean,
+export interface Permissions {
+    PermissionId: string,
+    IsReadable: boolean,
+    IsWritable: boolean,
+    IsDeletable: boolean,
 }

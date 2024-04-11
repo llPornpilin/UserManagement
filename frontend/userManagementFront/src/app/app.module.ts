@@ -9,6 +9,7 @@ import { DashboardPageComponent } from './features/dashboard/dashboard-page/dash
 import { ButtonComponent } from './core/components/button/button.component';
 import { AddUserModalComponent } from './features/dashboard/add-user-modal/add-user-modal.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     provideClientHydration()
