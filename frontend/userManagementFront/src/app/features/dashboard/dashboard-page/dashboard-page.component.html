@@ -55,7 +55,7 @@
                     <th class="head">Role</th>
                     <th class="head">Action</th>
                 </tr>
-                <tr *ngFor="let user of users">
+                <tr *ngFor="let user of datasource?.data">
                     <td class="col-md-5 body align-middle">
                         <div class="d-flex justify-content-between center pe-5">
                             <div>
@@ -87,27 +87,7 @@
 
 
     <!-- Pagination -->
-    <div class="flex center">
-        <p class="text center col-md-2">
-            Items per page
-        </p>
-
-        <select class="form-select border-0 border-bottom-2 bg-transparent" 
-            aria-label="Default select example" style="width: 90px;">
-            <option selected>5</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-        </select>
-        
-        <p class="text center col-md-2">1-4 of 10</p>
-
-        <div class="center justify-content-between" style="width: 50px;">
-            <span aria-hidden="true">&raquo;</span> 
-            <span aria-hidden="true">&raquo;</span>
-        </div>
-    </div>
+    <mat-paginator #paginator [length]="100" [pageSizeOptions]="[2,5,10]" aria-label="select page" showFirstLastButtons>
+    </mat-paginator>
 
 </div>

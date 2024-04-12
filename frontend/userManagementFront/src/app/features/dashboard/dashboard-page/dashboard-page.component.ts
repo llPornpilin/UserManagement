@@ -1,22 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ButtonType } from '../../../core/components/buttonType';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { GetUserRequest } from '../models/get-user-request';
+
+const usersMock: GetUserRequest[] = [
+  { 
+    firstName: 'David',
+    lastName: 'Wagner',
+    email: 'david_wagner@example.com',
+    roleName: 'Lorem Ipsum',
+    permissionName: 'Super Admin',
+    createdDate: '23 Oct, 2024'
+  },
+  { 
+    firstName: 'David',
+    lastName: 'Wagner',
+    email: 'david_wagner@example.com',
+    roleName: 'Lorem Ipsum',
+    permissionName: 'Super Admin',
+    createdDate: '23 Oct, 2024'
+  },
+  { 
+    firstName: 'David',
+    lastName: 'Wagner',
+    email: 'david_wagner@example.com',
+    roleName: 'Lorem Ipsum',
+    permissionName: 'Super Admin',
+    createdDate: '23 Oct, 2024'
+  },
+];
 
 @Component({
   selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.css'
 })
-export class DashboardPageComponent {
 
-  users = [
-    { 
-      firstName: 'David',
-      lastName: 'Wagner',
-      email: 'david_wagner@example.com',
-      roleName: 'Lorem Ipsum',
-      permissionName: 'Super Admin',
-      createdDate: '23 Oct, 2024' },
-  ];
+
+export class DashboardPageComponent {
 
   ButtonType = ButtonType
 
@@ -44,5 +66,19 @@ export class DashboardPageComponent {
   savedSearch(event: any) {
     console.log('- SAVE SEARCH -');
   }
+
+  // ------- Paginator -------
+    @ViewChild('paginator') paginator:MatPaginator | undefined;
+    datasource:MatTableDataSource<GetUserRequest> | undefined; // TODO: change datatype
+
+    ngAfterViewInit() {
+      if (this.paginator) {
+        this.datasource = new MatTableDataSource(usersMock);
+        this.datasource.paginator = this.paginator;
+      }
+      else {
+        console.warn("Paginator not found!");
+      }
+    }
 
 }
