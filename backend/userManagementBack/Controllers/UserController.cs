@@ -133,7 +133,7 @@ namespace userManagementBack.Controllers
         public async Task<IActionResult> UpdateUser([FromRoute] string id, UpdateUserRequestDto request) {
             // Convert DTO to Domain
             var updatedUserData = new UserData {
-                Id = id,
+                Id = request.Id,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
@@ -141,16 +141,18 @@ namespace userManagementBack.Controllers
                 RoleId = request.RoleId,
                 UserName = request.UserName,
                 Password = request.Password,
-                Permissions = request.Permissions?.Select(p => new BridgeUserPermissionData {
-                    PermissionId = p.PermissionId,
-                    IsReadable = p.IsReadable,
-                    IsWritable = p.IsWritable,
-                    IsDeletable = p.IsDeletable
-                }).ToList(),
                 CreatedDate = DateTime.UtcNow.ToString("dd MMMM, yyyy", CultureInfo.InvariantCulture)
             };
+
+            var updatedPermission = request.Permissions?.Select(p => new BridgeUserPermissionData {
+                UserId = p.UserId,
+                PermissionId = p.PermissionId,
+                IsReadable = p.IsReadable,
+                IsWritable = p.IsWritable,
+                IsDeletable = p.IsDeletable,
+            }).ToList();
             
-            updatedUserData = await userDataRepository.UpdateAsync(updatedUserData);
+            updatedUserData = await userDataRepository.UpdateAsync(updatedUserData, updatedPermission);
 
             if (updatedUserData == null) {
                 return NotFound();

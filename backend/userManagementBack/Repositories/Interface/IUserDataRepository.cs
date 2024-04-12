@@ -6,7 +6,7 @@ namespace userManagementBack.Repositories.Interface
     {
         Task<UserData> CreateAsync(UserData userData);
         Task<IEnumerable<UserData>> GetAllAsync(int pageNuumber, int pageSize, string search, string orderBy, string orderDirection);
-        Task<UserData?> UpdateAsync(UserData user);
+        Task<UserData?> UpdateAsync(UserData user, IList<BridgeUserPermissionData> bridgeUserPermission);
         Task<UserData?> DeleteAsync(string userId);
     }
 }

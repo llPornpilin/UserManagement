@@ -28,44 +28,30 @@ namespace userManagementBack.Repositories.Implementation
             return returnUserData;
         }
 
-        public async Task<UserData?> UpdateAsync(UserData user)
+        public async Task<UserData?> UpdateAsync(UserData user, IList<BridgeUserPermissionData> bridgeUserPermission)
         {
             var existingUser = await dbContext.UserDatas.FirstOrDefaultAsync(u => u.Id == user.Id);
             if (existingUser != null) {
                 dbContext.Entry(existingUser).CurrentValues.SetValues(user);
+
+                var existingPermissions = dbContext.UserPermissionDatas.Where(p => p.UserId == user.Id);
+                dbContext.UserPermissionDatas.RemoveRange(existingPermissions);
+
+                // Update permissions (using AddRange)
+                var newPermissions = bridgeUserPermission.Select(permission => new BridgeUserPermissionData
+                {
+                    UserId = user.Id,
+                    PermissionId = permission.PermissionId,
+                    IsReadable = permission.IsReadable,
+                    IsWritable = permission.IsWritable,
+                    IsDeletable = permission.IsDeletable
+                });
+                dbContext.UserPermissionDatas.AddRange(newPermissions);
+
                 await dbContext.SaveChangesAsync();
                 return user;
             }
             return null;
-
-            // var existingUser = await dbContext.UserDatas.Include(u => u.Permissions).FirstOrDefaultAsync();
-            // if (existingUser != null) {
-            //     existingUser.Id = user.Id;
-            //     existingUser.FirstName = user.FirstName;
-            //     existingUser.LastName = user.LastName;
-            //     existingUser.Email = user.Email;
-            //     existingUser.Phone = user.Phone;
-            //     existingUser.RoleId = user.RoleId;
-            //     existingUser.Role = user.Role;
-            //     existingUser.UserName = user.UserName;
-            //     existingUser.Password = user.Password;
-                
-            //     if (user.Permissions != null && user.Permissions.Any()) {
-            //         existingUser.Permissions?.ToList().AddRange(user.Permissions.Select(p => new BridgeUserPermissionData {
-            //             UserPermissionId = p.UserPermissionId,
-            //             IsReadable = p.IsReadable,
-            //             IsWritable = p.IsWritable,
-            //             IsDeletable = p.IsDeletable
-            //         }));
-                    
-            //     }
-            //     dbContext.UserDatas.Update(existingUser);
-            //     await dbContext.SaveChangesAsync();
-
-            //     return existingUser;
-            // }
-
-            // return null;
         }
 
         public async Task<UserData?> DeleteAsync(string userId)
