@@ -14,10 +14,14 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   addUser(model: AddUserRequest): Observable<void> {
-    return this.http.post<void>(`${environment.apiBaseUrl}`, model);
+    return this.http.post<void>(`${environment.apiBaseUrl}/api/user`, model);
   }
 
   getAllUsers(pageNumber: number, pageSize: number, search: string, orderBy: string, orderDirection: string): Observable<GetUserRequest> {
-    return this.http.get<GetUserRequest>(`${environment.apiBaseUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}&search=${search}&orderBy=${orderBy}&orderDirection=${orderDirection}`)
+    return this.http.get<GetUserRequest>(`${environment.apiBaseUrl}/api/user?pageNumber=${pageNumber}&pageSize=${pageSize}&search=${search}&orderBy=${orderBy}&orderDirection=${orderDirection}`)
+  }
+
+  deleteUser(userId: string): Observable<GetUserRequest> {
+    return this.http.delete<GetUserRequest>(`${environment.apiBaseUrl}/api/user/${userId}`);
   }
 }

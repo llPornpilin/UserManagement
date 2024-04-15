@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { GetDatasourse, GetUserRequest } from '../models/get-user-request';
 import { UserService } from '../services/user.service';
 import { response } from 'express';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class DashboardPageComponent implements OnInit {
 
   searchText: string;
 
-  constructor(private UserService: UserService) {
+  constructor(private UserService: UserService, private router: Router) {
     this.searchText = '';
   }
 
@@ -33,8 +34,17 @@ export class DashboardPageComponent implements OnInit {
   }
 
   // Delete User
-  deleteUser(event: any) { // TODO: Change data type
-    console.log('DELETE USER: ', event);
+  deleteUser(userId: string): void { // TODO: Change data type
+    console.log('DELETE USER: ', userId);
+    if (userId) {
+      this.UserService.deleteUser(userId)
+      .subscribe({
+        next: (response) => {
+          console.log('Delete Success !')
+          this.fetchUsers(this.currentPageNumber, this.currentPageSize, this.searchText, "", "");
+        }
+      })
+    }
   }
 
   // Sort
@@ -51,6 +61,7 @@ export class DashboardPageComponent implements OnInit {
   onTypingSearch() {
     this.fetchUsers(1, this.currentPageSize, this.searchText, "", "")
   }
+
 
   // ------- Paginator -------
 
