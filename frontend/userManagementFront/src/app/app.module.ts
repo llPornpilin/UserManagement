@@ -10,7 +10,8 @@ import { ButtonComponent } from './core/components/button/button.component';
 import { AddUserModalComponent } from './features/dashboard/add-user-modal/add-user-modal.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    BrowserAnimationsModule
   ],
   providers: [
     provideClientHydration()

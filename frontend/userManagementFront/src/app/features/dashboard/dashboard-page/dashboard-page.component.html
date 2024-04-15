@@ -6,7 +6,7 @@
     <div class="d-flex">
         <div class="d-flex col-md-9 align-items-center position-relative">
             <input type="text" class="form-control ps-15 rounded-3 border-0" style="padding-left: 50px;"
-                placeholder="Search">
+                placeholder="Search" [(ngModel)]="searchText" (input)="onTypingSearch()">
             <i class="fa-solid fa-magnifying-glass position-absolute start-1" style="left: 20px; color: var(--mediumGray)"></i>
 
             <app-button class="ms-3" [label]="addUserLabel" fontColor="white"
@@ -55,7 +55,7 @@
                     <th class="head">Role</th>
                     <th class="head">Action</th>
                 </tr>
-                <tr *ngFor="let user of datasource?.data">
+                <tr *ngFor="let user of datasource.data">
                     <td class="col-md-5 body align-middle">
                         <div class="d-flex justify-content-between center pe-5">
                             <div>
@@ -63,12 +63,12 @@
                                 <p class="text" style="color: var(--mediumGray);">{{user.email}}</p>
                             </div>
                             <div class="bg-primary rounded-3 center d-flex py-1" style="width: 100px;">
-                                <p class="text text-white">{{user.permissionName}}</p>
+                                <p class="text text-white">Permission</p>
                             </div>
                         </div>
                     </td>
                     <td class="col-md-2 body align-middle"><p>{{user.createdDate}}</p></td>
-                    <td class="col-md-2 body align-middle"><p>{{user.roleName}}</p></td>
+                    <td class="col-md-2 body align-middle"><p>Role Mock</p></td>
                     <td class="col-md-1 body align-middle justify-content-end align-items-center">
                         <div class="d-flex">
                             <app-button (onClick)="editUser($event)" size="small"
@@ -85,9 +85,9 @@
         </table>
     </div>
 
-
     <!-- Pagination -->
-    <mat-paginator #paginator [length]="100" [pageSizeOptions]="[2,5,10]" aria-label="select page" showFirstLastButtons>
+    <mat-paginator style="background-color: transparent;" #paginator [length]="pageAmount" [pageSizeOptions]="[2,5,10]" aria-label="select page"
+        (page)="onPageChanged($event)" showFirstLastButtons>
     </mat-paginator>
 
 </div>
