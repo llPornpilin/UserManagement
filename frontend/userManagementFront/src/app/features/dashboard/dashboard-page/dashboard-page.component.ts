@@ -49,7 +49,7 @@ export class DashboardPageComponent implements OnInit {
     console.log('- SAVE SEARCH -');
   }
   onTypingSearch() {
-    this.fetchUsers(this.currentPageNumber, this.currentPageSize, this.searchText, "", "")
+    this.fetchUsers(1, this.currentPageSize, this.searchText, "", "")
   }
 
   // ------- Paginator -------
@@ -60,7 +60,7 @@ export class DashboardPageComponent implements OnInit {
   
   // Get All User
   currentPageNumber = 1;
-  currentPageSize = 2;
+  currentPageSize = 3;
   
   fetchUsers(pageNumber: number, pageSize: number, search: string, orderBy: string, orderDirection: string): void {
     console.log('Search: ', this.searchText)
@@ -68,10 +68,7 @@ export class DashboardPageComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.datasource.data = response.datasource;
-          this.pageAmount = Math.ceil((response.totalCount / this.currentPageSize) * 2)
-          console.log('Number of Page: ', this.pageAmount)
-          console.log('Page Number: ', this.currentPageNumber)
-          console.log('Page Size: ', this.currentPageSize)
+          this.pageAmount = response.totalCount
         },
         error: (error) => {
           console.error('Error fetching users:', error);
@@ -81,13 +78,11 @@ export class DashboardPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchUsers(this.currentPageNumber, this.currentPageSize, this.searchText, "", "");
-    console.log('Amount: ', this.pageAmount)
   }
 
   onPageChanged(event: PageEvent): void {
     this.currentPageNumber = event.pageIndex + 1;
-    // this.currentPageSize = event.pageSize;
-    // console.log('Current size: ', this.currentPageSize)
+    this.currentPageSize = event.pageSize;
     this.fetchUsers(this.currentPageNumber, this.currentPageSize, this.searchText, "", "");
   }
 }
