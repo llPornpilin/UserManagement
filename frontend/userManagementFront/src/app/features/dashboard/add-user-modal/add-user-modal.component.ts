@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AddUserRequest, Permissions } from '../models/add-user-request.model';
 import { ButtonType } from '../../../core/components/buttonType';
 import { UserService } from '../services/user.service';
+import { UpdateUserRequest } from '../models/update-user-request.model';
+import { GetDatasourse, GetUserRequest } from '../models/get-user-request';
 
 @Component({
   selector: 'app-add-user-modal',
@@ -10,6 +12,30 @@ import { UserService } from '../services/user.service';
 })
 export class AddUserModalComponent {
 
+  @Input() isEditMode: boolean = false;
+  @Input() editedUserId: string = '';
+  // @Input() oldUserData?: AddUserRequest = {
+  //   Id: '',
+  //   FirstName: '',
+  //   LastName: '',
+  //   Email: '',
+  //   Phone: '',
+  //   RoleId: '',
+  //   Username: '',
+  //   Password: '',
+  //   Permissions: []
+  // };
+  @Input() oldUserData?: GetDatasourse = {
+    userId: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    role: {},
+    userName: '',
+    permission: [],
+    createdDate: ''
+  };
+
   permissionMock = [
     {PermissionName: 'Super Admin', PermissionId: '01'},
     {PermissionName: 'Admin', PermissionId: '02'},
@@ -17,13 +43,15 @@ export class AddUserModalComponent {
     {PermissionName: 'Lorem Ipsum', PermissionId: '04'},
   ]
 
-  addUserLabel = "Add User"
+  addUserLabel = "Add User";
   addUser(event: any) { // TODO: Change data type
-    console.log('- Added user -')
+    console.log('- Added user -');
   }
 
-  cancelAddModal = "Cencel"
-  buttonTypeSubmit = ButtonType.Submit
+  cancelAddModal = "Cencel";
+  buttonTypeSubmit = ButtonType.Submit;
+
+  editUserLabel = "Save Change";
 
   // ------------------ Model ------------------
 
@@ -66,6 +94,22 @@ export class AddUserModalComponent {
         error: (error) => {
           console.log('Add user error');
         }
-      })
+      });
+  }
+
+  onFormEditUserSubmit() {
+
+    this.model.Permissions = this.permissionModel;
+    console.log('Edit Id: ', this.editedUserId)
+    
+    // this.UserService.updateUser('0005', this.model)
+    //   .subscribe({
+    //     next: (response) => {
+    //       console.log('Update user success !');
+    //     },
+    //     error: (error) => {
+    //       console.log('Update user error');
+    //     }
+    //   });
   }
 }

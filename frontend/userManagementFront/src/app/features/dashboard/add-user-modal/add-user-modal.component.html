@@ -1,20 +1,20 @@
 <div class="modal fade modal-xl" id="exampleModal" tabindex="-1">
     <div class="modal-dialog">
-        <form #form="ngForm" (ngSubmit)="onFormAddUserSubmit()" class="modal-content">
+        <form #form="ngForm" (ngSubmit)="isEditMode ? onFormEditUserSubmit() : onFormAddUserSubmit()" class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel"><b>Add User</b></h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel"><b>{{ isEditMode ? 'Edit User' : 'Add User' }}</b></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <input type="text" name="userId" class="form-control" placeholder="User ID *" [(ngModel)]="model.Id">
+                    <input type="text" name="userId" class="form-control" placeholder="User ID *" [(ngModel)]="isEditMode ? oldUserData?.userId : model.Id">
                 </div>
                 <div class="d-flex justify-content-between mb-3 gap-3">
-                    <input type="text" name="firstName" class="form-control" placeholder="First Name *" [(ngModel)]="model.FirstName">
-                    <input type="text" name="lastName" class="form-control" placeholder="Last Name *" [(ngModel)]="model.LastName">
+                    <input type="text" name="firstName" class="form-control" placeholder="First Name *" [(ngModel)]="isEditMode ? oldUserData?.firstName : model.FirstName">
+                    <input type="text" name="lastName" class="form-control" placeholder="Last Name *" [(ngModel)]="isEditMode ? oldUserData?.lastName : model.LastName">
                 </div>
                 <div class="d-flex justify-content-between mb-3 gap-3">
-                    <input type="text" name="email" class="form-control" placeholder="Email ID *" [(ngModel)]="model.Email">
+                    <input type="text" name="email" class="form-control" placeholder="Email ID *" [(ngModel)]="isEditMode ? oldUserData?.email : model.Email">
                     <input type="text" name="phone" class="form-control" placeholder="Mobile No *" [(ngModel)]="model.Phone">
                     <select name="role" class="form-select" aria-label="select user role" [(ngModel)]="model.RoleId">
                         <option selected>Select Role Type</option>
@@ -59,7 +59,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <app-button (onClick)="addUser($event)" [label]="addUserLabel" fontColor="white"
+                <app-button (onClick)="addUser($event)" [label]="isEditMode ? editUserLabel : addUserLabel" fontColor="white"
                     color="primary" size="small" [type]="buttonTypeSubmit">
                 </app-button>
                 <app-button [label]="cancelAddModal" fontColor="var(--mediumGray)" data-bs-dismiss="modal" size="small">

@@ -13,5 +13,5 @@ export interface GetDatasourse {
     role: {},
     userName: string,
     permission: [],
-    createdDate: string
+    createdDate: string,
 }

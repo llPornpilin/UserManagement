@@ -6,6 +6,7 @@ import { GetDatasourse, GetUserRequest } from '../models/get-user-request';
 import { UserService } from '../services/user.service';
 import { response } from 'express';
 import { Router } from '@angular/router';
+import { AddUserRequest } from '../models/add-user-request.model';
 
 
 @Component({
@@ -17,6 +18,10 @@ import { Router } from '@angular/router';
 
 export class DashboardPageComponent implements OnInit {
 
+  isEditMode: boolean = false;
+  editedUserId: string = '';
+  oldUserData?: GetDatasourse;
+
   searchText: string;
 
   constructor(private UserService: UserService, private router: Router) {
@@ -27,14 +32,23 @@ export class DashboardPageComponent implements OnInit {
 
   // Add User
   addUserLabel = "Add users"
+  addUser(event: any) {
+    console.log('ADD USER: ', event);
+    this.isEditMode = false;
+  }
+
 
   // Edit User
-  editUser(event: any) { // TODO: Change data type
-    console.log('EDIT USER: ', event);
+  editUser(user: GetDatasourse) {
+    console.log('- EDIT USER -');
+    this.isEditMode = true;
+    this.editedUserId = user.userId;
+    this.oldUserData = user;
+    console.log('edit data: ', user)
   }
 
   // Delete User
-  deleteUser(userId: string): void { // TODO: Change data type
+  deleteUser(userId: string): void {
     console.log('DELETE USER: ', userId);
     if (userId) {
       this.UserService.deleteUser(userId)
