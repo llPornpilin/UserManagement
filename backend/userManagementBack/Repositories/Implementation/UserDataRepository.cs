@@ -74,5 +74,15 @@ namespace userManagementBack.Repositories.Implementation
 
             return existingUser;
         }
+
+        public async Task<UserData?> GetById(string id)
+        {
+            return await dbContext.UserDatas
+                .Include(u => u.Role)
+                .Include(u => u.Permissions)
+                .ThenInclude(p => p.PermissionData)
+                .FirstOrDefaultAsync(u => u.Id == id);
+        }
+
     }
 }

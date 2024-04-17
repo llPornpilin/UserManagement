@@ -195,5 +195,35 @@ namespace userManagementBack.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetUserById([FromRoute] string id) {
+
+            var existingUser = await userDataRepository.GetById(id);
+            if (existingUser is null) {
+                return NotFound();
+            }
+
+            var response = new UserDataDto {
+                Id = existingUser.Id,
+                FirstName = existingUser.FirstName,
+                LastName = existingUser.LastName,
+                Email = existingUser.Email,
+                Phone = existingUser.Phone,
+                Role = new RoleData {
+                    RoleId = existingUser.Role?.RoleId ?? "",
+                    RoleName = existingUser.Role?.RoleName ?? "",
+                },
+                UserName = existingUser.UserName,
+                Password = existingUser.Password,
+                Permissions = existingUser.Permissions?.Select(p => new PermissionData {
+                    PermissionId = p.PermissionData?.PermissionId ?? "",
+                    PermissionName = p.PermissionData?.PermissionName ?? "",
+                }).ToList()
+            };
+
+            return Ok(response);
+        }
     }
 }
