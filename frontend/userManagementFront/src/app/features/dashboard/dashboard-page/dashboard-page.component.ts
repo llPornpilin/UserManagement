@@ -63,7 +63,7 @@ export class DashboardPageComponent implements OnInit {
 
   // Sort
   sortLabel = "Sort by"
-  sortItem(event: any) { // TODO: Change data type
+  sortItem(event: any) {
     console.log('- SORT TOGGLE -');
   }
 

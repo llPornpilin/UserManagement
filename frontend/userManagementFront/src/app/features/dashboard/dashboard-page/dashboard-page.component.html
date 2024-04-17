@@ -18,13 +18,11 @@
         <div class="d-flex col-md-3 justify-content-between gap-0 center">
             <div class="dropdown d-flex align-items-center ps-3">
                 <app-button [isDropdown]=true (onClick)="sortItem($event)" [label]="sortLabel"
-                    [type]="ButtonType.Button">
+                    [type]="ButtonType.Button" data-bs-toggle="dropdown">
                 </app-button>
-
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#">Name</a>
                     <a class="dropdown-item" href="#">Role</a>
-                    <a class="dropdown-item" href="#">Create date</a>
                 </div>
             </div>
 
