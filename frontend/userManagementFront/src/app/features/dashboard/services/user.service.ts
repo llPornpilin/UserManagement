@@ -30,4 +30,8 @@ export class UserService {
   deleteUser(userId: string): Observable<GetUserRequest> {
     return this.http.delete<GetUserRequest>(`${environment.apiBaseUrl}/api/user/${userId}`);
   }
+
+  getUserById(userId: string): Observable<UpdateUserRequest> {
+    return this.http.get<UpdateUserRequest>(`${environment.apiBaseUrl}/api/user/${userId}`)
+  }
 }

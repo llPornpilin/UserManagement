@@ -4,16 +4,19 @@ export interface UpdateUserRequest {
     LastName: string,
     Email: string,
     Phone: string,
-    RoleId: string,
+    Role: Role,
     Username: string,
     Password: string,
-    // ConfirmPassword: string,
     Permissions: Permissions[]
 }
-
 export interface Permissions {
     PermissionId: string,
     IsReadable: boolean,
     IsWritable: boolean,
     IsDeletable: boolean,
+}
+
+export interface Role {
+    RoleId: string,
+    RoleName: string
 }

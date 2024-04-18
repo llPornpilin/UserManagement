@@ -1,5 +1,5 @@
 <div>
-    <app-add-user-modal [isEditMode]="isEditMode" [editedUserId]="editedUserId" [oldUserData]="oldUserData"></app-add-user-modal>
+    <app-add-user-modal [isEditMode]="isEditMode" [editedUserId]="editedUserId"></app-add-user-modal>
 
     <h4 class="text-primary" style="color:var(--lighBlue);"><b>Users Dashboard</b></h4>
 
@@ -69,7 +69,7 @@
                     <td class="col-md-2 body align-middle"><p>Role Mock</p></td>
                     <td class="col-md-1 body align-middle justify-content-end align-items-center">
                         <div class="d-flex">
-                            <app-button (onClick)="editUser(user)" size="small"
+                            <app-button (onClick)="editUser(user.userId)" size="small"
                                 iconName="fa-regular fa-pen-to-square" [type]="ButtonType.Button" 
                                 data-bs-toggle="modal" data-bs-target="#exampleModal">
                             </app-button>

@@ -1,4 +1,4 @@
-<div class="modal fade modal-xl" id="exampleModal" tabindex="-1">
+<div *ngIf="oldUserData" class="modal fade modal-xl" id="exampleModal" tabindex="-1">
     <div class="modal-dialog">
         <form #form="ngForm" (ngSubmit)="isEditMode ? onFormEditUserSubmit() : onFormAddUserSubmit()" class="modal-content">
             <div class="modal-header">
@@ -7,14 +7,14 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <input type="text" name="userId" class="form-control" placeholder="User ID *" [(ngModel)]="isEditMode ? oldUserData?.userId : model.Id">
+                    <input type="text" name="userId" class="form-control" placeholder="User ID *" [(ngModel)]="isEditMode ? oldUserData?.Id : model.Id">
                 </div>
                 <div class="d-flex justify-content-between mb-3 gap-3">
-                    <input type="text" name="firstName" class="form-control" placeholder="First Name *" [(ngModel)]="isEditMode ? oldUserData?.firstName : model.FirstName">
-                    <input type="text" name="lastName" class="form-control" placeholder="Last Name *" [(ngModel)]="isEditMode ? oldUserData?.lastName : model.LastName">
+                    <input type="text" name="firstName" class="form-control" placeholder="First Name *" [(ngModel)]="isEditMode ? oldUserData?.FirstName : model.FirstName">
+                    <input type="text" name="lastName" class="form-control" placeholder="Last Name *" [(ngModel)]="isEditMode ? oldUserData?.LastName : model.LastName">
                 </div>
                 <div class="d-flex justify-content-between mb-3 gap-3">
-                    <input type="text" name="email" class="form-control" placeholder="Email ID *" [(ngModel)]="isEditMode ? oldUserData?.email : model.Email">
+                    <input type="text" name="email" class="form-control" placeholder="Email ID *" [(ngModel)]="isEditMode ? oldUserData?.Email : model.Email">
                     <input type="text" name="phone" class="form-control" placeholder="Mobile No *" [(ngModel)]="model.Phone">
                     <select name="role" class="form-select" aria-label="select user role" [(ngModel)]="model.RoleId">
                         <option selected>Select Role Type</option>

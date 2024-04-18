@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
 import { response } from 'express';
 import { Router } from '@angular/router';
 import { AddUserRequest } from '../models/add-user-request.model';
+import { UpdateUserRequest } from '../models/update-user-request.model';
 
 
 @Component({
@@ -20,12 +21,13 @@ export class DashboardPageComponent implements OnInit {
 
   isEditMode: boolean = false;
   editedUserId: string = '';
-  oldUserData?: GetDatasourse;
+  oldUserData?: UpdateUserRequest;
 
   searchText: string;
 
   constructor(private UserService: UserService, private router: Router) {
     this.searchText = '';
+    console.log('Old : ', this.oldUserData)
   }
 
   ButtonType = ButtonType
@@ -39,12 +41,10 @@ export class DashboardPageComponent implements OnInit {
 
 
   // Edit User
-  editUser(user: GetDatasourse) {
-    console.log('- EDIT USER -');
+  editUser(userId: string) {
+
     this.isEditMode = true;
-    this.editedUserId = user.userId;
-    this.oldUserData = user;
-    console.log('edit data: ', user)
+    this.editedUserId = userId;
   }
 
   // Delete User

@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { AddUserRequest, Permissions } from '../models/add-user-request.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { AddUserRequest } from '../models/add-user-request.model';
 import { ButtonType } from '../../../core/components/buttonType';
 import { UserService } from '../services/user.service';
-import { UpdateUserRequest } from '../models/update-user-request.model';
+import { UpdateUserRequest, Permissions } from '../models/update-user-request.model';
 import { GetDatasourse, GetUserRequest } from '../models/get-user-request';
 
 @Component({
@@ -14,26 +14,19 @@ export class AddUserModalComponent {
 
   @Input() isEditMode: boolean = false;
   @Input() editedUserId: string = '';
-  // @Input() oldUserData?: AddUserRequest = {
-  //   Id: '',
-  //   FirstName: '',
-  //   LastName: '',
-  //   Email: '',
-  //   Phone: '',
-  //   RoleId: '',
-  //   Username: '',
-  //   Password: '',
-  //   Permissions: []
-  // };
-  @Input() oldUserData?: GetDatasourse = {
-    userId: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    role: {},
-    userName: '',
-    permission: [],
-    createdDate: ''
+  @Input() oldUserData?: UpdateUserRequest = {
+    Id: '90',
+    FirstName: ' fgdg',
+    LastName: '',
+    Email: '',
+    Phone: '',
+    Role: {
+      RoleId: '',
+      RoleName: ''
+    },
+    Username: '',
+    Password: '',
+    Permissions: []
   };
 
   permissionMock = [
@@ -80,6 +73,24 @@ export class AddUserModalComponent {
     };
   }
 
+  ngOnChanges(): void {
+    console.log('----------- Edit: ', this.isEditMode)
+    console.log('----------- Edit id: ', this.editedUserId)
+    if (this.isEditMode == false && this.editedUserId != "") {
+      console.log('----------- In condition')
+      this.UserService.getUserById(this.editedUserId)
+      .subscribe({
+        next: (response) => {
+          this.oldUserData = response
+          console.log('Old data: ', this.oldUserData)
+        },
+        error: (error) => {
+          console.error('Error get user data by id: ', error);
+        }
+      })
+    }
+  }
+
 
   onFormAddUserSubmit() {
     
@@ -102,7 +113,7 @@ export class AddUserModalComponent {
     this.model.Permissions = this.permissionModel;
     console.log('Edit Id: ', this.editedUserId)
     
-    // this.UserService.updateUser('0005', this.model)
+    // this.UserService.updateUser('this.editedUserId', this.model)
     //   .subscribe({
     //     next: (response) => {
     //       console.log('Update user success !');
