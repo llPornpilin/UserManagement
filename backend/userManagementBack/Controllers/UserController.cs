@@ -79,15 +79,10 @@ namespace userManagementBack.Controllers
                             allUser.OrderBy(a => a.FirstName) :
                             allUser.OrderByDescending(a => a.FirstName);
                         break;
-                    // case "role": // TODO: change Role to object and access to role name
-                    //     allUser = orderDirection == "asc" ?
-                    //         allUser.OrderBy(a => a.RoleId) :
-                    //         allUser.OrderByDescending(a => a.RoleId);
-                    //     break;
-                    case "createddate":
-                        allUser = orderDirection == "asc" ? 
-                            allUser.OrderBy(a => a.CreatedDate) :
-                            allUser.OrderByDescending(a => a.CreatedDate);
+                    case "role": // TODO: change Role to object and access to role name
+                        allUser = orderDirection == "asc" ?
+                            allUser.OrderBy(a => a.Role?.RoleName) :
+                            allUser.OrderByDescending(a => a.Role?.RoleName);
                         break;
                     default:
                         allUser = allUser.OrderBy(a => a.CreatedDate);

@@ -113,14 +113,14 @@ export class AddUserModalComponent {
     this.model.Permissions = this.permissionModel;
     console.log('Edit Id: ', this.editedUserId)
     
-    // this.UserService.updateUser('this.editedUserId', this.model)
-    //   .subscribe({
-    //     next: (response) => {
-    //       console.log('Update user success !');
-    //     },
-    //     error: (error) => {
-    //       console.log('Update user error');
-    //     }
-    //   });
+    this.UserService.updateUser(this.editedUserId, this.model)
+      .subscribe({
+        next: (response) => {
+          console.log('Update user success !');
+        },
+        error: (error) => {
+          console.log('Update user error');
+        }
+      });
   }
 }

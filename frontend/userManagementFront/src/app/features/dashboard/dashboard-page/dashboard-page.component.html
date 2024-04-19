@@ -17,12 +17,12 @@
 
         <div class="d-flex col-md-3 justify-content-between gap-0 center">
             <div class="dropdown d-flex align-items-center ps-3">
-                <app-button [isDropdown]=true (onClick)="sortItem($event)" [label]="sortLabel"
+                <app-button [isDropdown]=true [label]="sortLabel"
                     [type]="ButtonType.Button" data-bs-toggle="dropdown">
                 </app-button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Name</a>
-                    <a class="dropdown-item" href="#">Role</a>
+                    <a class="dropdown-item" (click)="selectOrderBy('name')">name</a>
+                    <a class="dropdown-item" (click)="selectOrderBy('role')">role</a>
                 </div>
             </div>
 
@@ -32,9 +32,13 @@
                 </app-button>
             </div>
 
-            <app-button size="small"
+            <app-button [isDropdown]=true data-bs-toggle="dropdown" size="small"
                 iconName="fa-solid fa-list" iconColor="var(--darkGray)" [type]="ButtonType.Button">
             </app-button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" (click)="selectOrderDirection('asc')">Ascending</a>
+                <a class="dropdown-item" (click)="selectOrderDirection('desc')">Descending</a>
+            </div>
         </div>
     </div>
 

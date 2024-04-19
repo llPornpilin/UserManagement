@@ -24,9 +24,13 @@ export class DashboardPageComponent implements OnInit {
   oldUserData?: UpdateUserRequest;
 
   searchText: string;
+  orderBySelected: string;
+  orderDirection: string;
 
   constructor(private UserService: UserService, private router: Router) {
     this.searchText = '';
+    this.orderBySelected = '';
+    this.orderDirection = 'asc'
     console.log('Old : ', this.oldUserData)
   }
 
@@ -61,10 +65,17 @@ export class DashboardPageComponent implements OnInit {
     }
   }
 
-  // Sort
+  // Order By
   sortLabel = "Sort by"
-  sortItem(event: any) {
-    console.log('- SORT TOGGLE -');
+  selectOrderBy(type: string) {
+    this.orderBySelected = type;
+    this.fetchUsers(this.currentPageNumber, this.currentPageSize, this.searchText, this.orderBySelected, this.orderDirection);
+  }
+
+  // Order Direction
+  selectOrderDirection(type: string) {
+    this.orderDirection = type;
+    this.fetchUsers(this.currentPageNumber, this.currentPageSize, this.searchText, this.orderBySelected, this.orderDirection);
   }
 
   // Search
@@ -108,6 +119,6 @@ export class DashboardPageComponent implements OnInit {
   onPageChanged(event: PageEvent): void {
     this.currentPageNumber = event.pageIndex + 1;
     this.currentPageSize = event.pageSize;
-    this.fetchUsers(this.currentPageNumber, this.currentPageSize, this.searchText, "", "");
+    this.fetchUsers(this.currentPageNumber, this.currentPageSize, this.searchText, this.orderBySelected, this.orderDirection);
   }
 }
