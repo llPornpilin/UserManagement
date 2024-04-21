@@ -14,6 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => {
 
 builder.Services.AddScoped<IUserDataRepository, UserDataRepository>();
 builder.Services.AddScoped<IRoleDataRepository, RoleDataRepository>();
+builder.Services.AddScoped<IPermissionDataRepository, PermissionDataRepository>();
 
 var app = builder.Build();
 
